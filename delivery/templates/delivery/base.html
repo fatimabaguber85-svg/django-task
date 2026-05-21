@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Django Task</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f6f1fb;
+            color: #2d2438;
+        }
+
+        nav {
+            background: #6d28d9;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: white;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        nav span {
+            margin-left: auto;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 85%;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: #6d28d9;
+            margin-top: 0;
+        }
+
+        a.button, button {
+            background: #6d28d9;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: none;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        a.button:hover, button:hover {
+            background: #5b21b6;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            margin-bottom: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        li {
+            background: #faf7ff;
+            margin-bottom: 12px;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #eadcff;
+        }
+
+        .actions a {
+            margin-left: 10px;
+            color: #6d28d9;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <a href="{% url 'products' %}">Django Task</a>
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'products' %}">Products</a>
+        <a href="{% url 'product_add' %}">Add Product</a>
+        <form method="post" action="{% url 'logout' %}" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" style="background:none; border:none; color:white; font-weight:bold; cursor:pointer;">
+        Logout
+    </button>
+</form>
+        <span>Welcome {{ user.username }}</span>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+    {% endif %}
+</nav>
+
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+</body>
+</html>

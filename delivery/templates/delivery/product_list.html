@@ -1,0 +1,27 @@
+{% extends 'delivery/base.html' %}
+
+{% block content %}
+
+<h2>Products List</h2>
+
+<a class="button" href="{% url 'product_add' %}">➕ Add Product</a>
+
+<ul>
+{% for product in products %}
+    <li style="display: flex; justify-content: space-between; align-items: center;">
+        <span>
+            <strong>{{ product.name }}</strong>
+            <span>- {{ product.price }}</span>
+        </span>
+
+        <span class="actions">
+            <a href="{% url 'product_update' product.id %}">✏️ Update</a>
+            <a href="{% url 'product_delete' product.id %}">🗑️ Delete</a>
+        </span>
+    </li>
+{% empty %}
+    <li>No products found</li>
+{% endfor %}
+</ul>
+
+{% endblock %}
